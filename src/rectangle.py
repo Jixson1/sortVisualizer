@@ -28,10 +28,12 @@ class Rectangle:
     # Updates value of Rectangle object
     # and modifies its coordinates accordingly
     def updateVal(self, value: int):
+        # update value
         self.value = value
+        
         # grab current coordinates (corners of rectangle)
         x0, y0, x1, y1 = self.canvas.coords(self.rectangle)
-        # modify coordinates based off changed value to resize rectangle in place
+
         # modifying absolute x value
         x0 = (self.value * WIDTH/100) - WIDTH/100
         

@@ -1,3 +1,4 @@
+from random import random
 from tkinter import *
 from rectangle import Rectangle
 import numpy as np
@@ -5,7 +6,8 @@ from time import sleep
 
 def genArray(arr: list[Rectangle]):
 	for i in range(1, 101):
-		arr.append(Rectangle(window, canvas, i))
+		arr.append(Rectangle(canvas, i))
+
 
 def randomize(arr: list[Rectangle]):
 	npArr = np.arange(0, 100)
@@ -22,6 +24,9 @@ def randomize(arr: list[Rectangle]):
 		# arr[val] = temp
 		# index += 1
 
+def key_pressed(event):
+	randomize(arr)
+
 if __name__ == "__main__":
 	# Window initialization
 	window = Tk()
@@ -34,6 +39,6 @@ if __name__ == "__main__":
 	# generate initial array
 	arr: list[Rectangle] = []
 	genArray(arr)
-	window.bind('<KeyPress-Up>', lambda e: randomize(arr))
+	window.bind('r', key_pressed)
 	
 	window.mainloop()

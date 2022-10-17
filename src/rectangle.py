@@ -1,5 +1,5 @@
 from tkinter import *
-from constants import WIDTH, HEIGHT
+from constants import WIDTH, HEIGHT, N
 
 # Rectangle Class for each data point
 class Rectangle:
@@ -9,34 +9,33 @@ class Rectangle:
         self.value = value
         
         # initialize x and y coordinate
-        self.x = (self.value * WIDTH/100) - WIDTH/100
+        self.x = (self.value * (WIDTH/N)) - WIDTH/N
         self.y = HEIGHT
     
         self.rectangle = self.canvas.create_rectangle(
             # top left corner
-            self.x, self.y - (self.value * 3),
+            self.x, self.y - (self.value * (HEIGHT/(N*1.5))) - 10,
             # bottom right corner
-            self.x + 5, self.y,
-            fill = "white"
+            self.x + (WIDTH/N), self.y,
+            fill = 'white',
         )
 
     # Returns the value of the Rectangle object
     # in this position
     def getVal(self):
         return self.value
-    
-    # Updates value of Rectangle object
-    # and modifies its coordinates accordingly
-    def updateVal(self, value: int):
-        # update value
-        self.value = value
-        
-        # grab current coordinates (corners of rectangle)
-        x0, y0, x1, y1 = self.canvas.coords(self.rectangle)
 
-        # modifying absolute x value
-        x0 = (self.value * WIDTH/100) - WIDTH/100
-        
-        # update coordinates on canvas
-        self.canvas.moveto(self.rectangle, x0, y0)
+    # returns current position of rectangle
+    def getPos(self):
+        x, _, _, _ = self.canvas.coords(self.rectangle)
+        return x
+
+    # updates position of rectangle
+    def updatePos(self, x: float):
+        x0, _, _, _ = self.canvas.coords(self.rectangle)
+        self.canvas.move(self.rectangle, x-x0, 0)
+    
+    # changes color of rectangle
+    def changeColor(self, color):
+        self.canvas.itemconfig(self.rectangle, fill = color)
         

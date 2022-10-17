@@ -1,5 +1,5 @@
 # Constants
 
-WIDTH = 1000
+WIDTH = 1500
 HEIGHT = 800
 N = 200

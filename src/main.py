@@ -23,8 +23,6 @@ def swap(index1: int, index2: int):
 		arr[index1] = arr[index2]
 		arr[index2] = tempRect
 
-		
-
 # generates a random numpy array and then 
 # uses it to randomize the Rectangle array
 def randomize():
@@ -42,7 +40,6 @@ def sortComplete():
 	for i in range(N):
 		arr[i].changeColor('lime')
 		canvas.update()
-		sleep(.00001)
 	sleep(.5)
 	for i in range(N):
 		arr[i].changeColor('white')
@@ -50,7 +47,7 @@ def sortComplete():
 	
 # runs the bubble sort algorithm on the current array
 def bubbleSort():
-	print('Running BubbleSort...')
+	print('Running Bubble Sort...')
 	for i in range(N):
 		for j in range(0, N-i-1):
 			arr[j].changeColor('blue')
@@ -60,11 +57,32 @@ def bubbleSort():
 			arr[j].changeColor('white')
 			arr[j+1].changeColor('white')
 
-	sortComplete()
-	print('BubbleSort Complete')
-	
+		sleep(.0001)
 
-			
+	sortComplete()
+	print('Bubble Sort Complete')
+
+# runs the selection sort algorithm on the current array
+def selectionSort():
+	print('Running Selection Sort...')
+	for i in range(N):
+		min_index = i
+
+		for j in range((i + 1), N):
+			if arr[j].getVal() < arr[min_index].getVal():
+				min_index = j
+
+		arr[min_index].changeColor('blue')
+		arr[i].changeColor('red')
+
+		swap(i, min_index)
+		
+		arr[min_index].changeColor('white')
+		arr[i].changeColor('white')
+		sleep(.0001)
+	
+	sortComplete()
+	print('Selection Sort Complete')
 
 # handle key press
 def key_pressed(event):
@@ -72,6 +90,8 @@ def key_pressed(event):
 		randomize()
 	if event.char == 'b':
 		bubbleSort()
+	if event.char == 's':
+		selectionSort()
 
 
 if __name__ == "__main__":

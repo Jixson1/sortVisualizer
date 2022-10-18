@@ -97,7 +97,7 @@ def quickSort(low, high):
 		quickSort(low, (p_index - 1))
 		quickSort((p_index + 1), high)
 
-# handle key press
+# handle keyboard input
 def key_pressed(event):
 	if event.char == 'r':
 		print('Randomizing Array...')
@@ -111,6 +111,7 @@ def key_pressed(event):
 	if event.char == 's':
 		print('Running Selection Sort...')
 		selectionSort()
+		sortComplete()
 		print('Selection Sort Complete')
 	if event.char == 'q':
 		print('Running QuickSort...')

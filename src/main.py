@@ -26,14 +26,12 @@ def swap(index1: int, index2: int):
 # generates a random numpy array and then 
 # uses it to randomize the Rectangle array
 def randomize():
-	print('Randomizing Array...')
 	npArr = np.arange(0, N)
 	np.random.shuffle(npArr)
 	index = 0
 	for randIndex in npArr:
 		swap(index, randIndex)
 		index += 1
-	print('Randomizing Complete')
 
 # animation that plays when sort is complete
 def sortComplete():
@@ -47,7 +45,6 @@ def sortComplete():
 	
 # runs the bubble sort algorithm on the current array
 def bubbleSort():
-	print('Running Bubble Sort...')
 	for i in range(N):
 		for j in range(0, N-i-1):
 			arr[j].changeColor('blue')
@@ -59,12 +56,8 @@ def bubbleSort():
 
 		sleep(.0001)
 
-	sortComplete()
-	print('Bubble Sort Complete')
-
 # runs the selection sort algorithm on the current array
 def selectionSort():
-	print('Running Selection Sort...')
 	for i in range(N):
 		min_index = i
 
@@ -72,26 +65,58 @@ def selectionSort():
 			if arr[j].getVal() < arr[min_index].getVal():
 				min_index = j
 
-		arr[min_index].changeColor('blue')
-		arr[i].changeColor('red')
+		arr[i].changeColor('blue')
+		arr[min_index].changeColor('red')
 
 		swap(i, min_index)
 		
-		arr[min_index].changeColor('white')
 		arr[i].changeColor('white')
+		arr[min_index].changeColor('white')
 		sleep(.0001)
-	
-	sortComplete()
-	print('Selection Sort Complete')
+
+# partition function utilized in quicksort()
+def partition(low, high):
+	pivot_item = arr[low]
+	j = low
+	for i in range(low, high+1):
+		if arr[i].getVal() < pivot_item.getVal():
+			j += 1
+			arr[i].changeColor('blue')
+			arr[j].changeColor('red')
+			swap(i, j)
+			arr[i].changeColor('white')
+			arr[j].changeColor('white')
+	pivot_point = j
+	swap(low, pivot_point)
+	return pivot_point
+
+# runs the QuickSort algorithm on the current array
+def quickSort(low, high):
+	if high > low:
+		p_index = partition(low, high)
+		quickSort(low, (p_index - 1))
+		quickSort((p_index + 1), high)
 
 # handle key press
 def key_pressed(event):
 	if event.char == 'r':
+		print('Randomizing Array...')
 		randomize()
+		print('Randomizing Complete')
 	if event.char == 'b':
+		print('Running Bubble Sort...')
 		bubbleSort()
+		sortComplete()
+		print('Bubble Sort Complete')
 	if event.char == 's':
+		print('Running Selection Sort...')
 		selectionSort()
+		print('Selection Sort Complete')
+	if event.char == 'q':
+		print('Running QuickSort...')
+		quickSort(0, (N-1))
+		sortComplete()
+		print('QuickSort Complete')
 
 
 if __name__ == "__main__":

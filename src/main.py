@@ -19,9 +19,7 @@ def swap(index1: int, index2: int):
 		x2 = arr[index2].getPos()
 		arr[index1].updatePos(x2)
 		arr[index2].updatePos(x1)
-		tempRect: Rectangle = arr[index1]
-		arr[index1] = arr[index2]
-		arr[index2] = tempRect
+		arr[index1], arr[index2] = arr[index2], arr[index1]
 
 # generates a random numpy array and then 
 # uses it to randomize the Rectangle array

@@ -1,3 +1,4 @@
+from heapq import merge
 from tkinter import *
 from rectangle import Rectangle
 import numpy as np
@@ -95,6 +96,39 @@ def quickSort(low, high):
 		quickSort(low, (p_index - 1))
 		quickSort((p_index + 1), high)
 
+# runs the Merge Sort algorithm on the current array
+# algorithm code sourced from:
+# https://www.geeksforgeeks.org/merge-sort/
+def mergeSort(subset: list[Rectangle]):
+	if len(subset) > 1:
+		mid = len(subset)//2
+
+		L: list[Rectangle] = subset[:mid]
+		R: list[Rectangle] = subset[mid:]
+		mergeSort(L)
+		mergeSort(R)
+
+		i = j = k = 0
+
+		while i < len(L) and j < len(R):
+			if L[i].getVal() <= R[j].getVal():
+				arr[k] = L[i]
+				i += 1
+			else:
+				arr[k] = R[j]
+				j += 1
+			k += 1
+		
+		while i < len(L):
+			arr[k] = L[i]
+			i += 1
+			k += 1
+		while j < len(R):
+			arr[k] = R[j]
+			j += 1
+			k += 1
+
+
 # handle keyboard input
 def key_pressed(event):
 	if event.char == 'r':
@@ -116,6 +150,11 @@ def key_pressed(event):
 		quickSort(0, (N-1))
 		sortComplete()
 		print('QuickSort Complete')
+	if event.char == 'm':
+		print('Running Merge Sort...')
+		mergeSort(arr)
+		sortComplete()
+		print('Merge Sort Complete')
 
 
 if __name__ == "__main__":

@@ -1,4 +1,3 @@
-from heapq import merge
 from tkinter import *
 from rectangle import Rectangle
 import numpy as np

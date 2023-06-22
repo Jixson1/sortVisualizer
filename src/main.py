@@ -98,62 +98,70 @@ def quickSort(low, high):
 # runs the Merge Sort algorithm on the current array
 # algorithm code sourced from:
 # https://www.geeksforgeeks.org/merge-sort/
-def mergeSort(subset: list[Rectangle]):
-	if len(subset) > 1:
-		mid = len(subset)//2
+# def mergeSort(subset: list[Rectangle]):
+# 	if len(subset) > 1:
+# 		mid = len(subset)//2
 
-		L: list[Rectangle] = subset[:mid]
-		R: list[Rectangle] = subset[mid:]
-		mergeSort(L)
-		mergeSort(R)
+# 		L: list[Rectangle] = subset[:mid]
+# 		R: list[Rectangle] = subset[mid:]
+# 		mergeSort(L)
+# 		mergeSort(R)
 
-		i = j = k = 0
+# 		i = j = k = 0
 
-		while i < len(L) and j < len(R):
-			if L[i].getVal() <= R[j].getVal():
-				arr[k] = L[i]
-				i += 1
-			else:
-				arr[k] = R[j]
-				j += 1
-			k += 1
+# 		while i < len(L) and j < len(R):
+# 			if L[i].getVal() <= R[j].getVal():
+# 				arr[k] = L[i]
+# 				i += 1
+# 			else:
+# 				arr[k] = R[j]
+# 				j += 1
+# 			k += 1
 		
-		while i < len(L):
-			arr[k] = L[i]
-			i += 1
-			k += 1
-		while j < len(R):
-			arr[k] = R[j]
-			j += 1
-			k += 1
+# 		while i < len(L):
+# 			arr[k] = L[i]
+# 			i += 1
+# 			k += 1
+# 		while j < len(R):
+# 			arr[k] = R[j]
+# 			j += 1
+# 			k += 1
 
 
 # handle keyboard input
 def key_pressed(event):
 	if event.char == 'r':
 		print('Randomizing Array...')
+		process_label.config(text='Randomizing Array...')
 		randomize()
-		print('Randomizing Complete')
+		print('Randomization Complete')
+		process_label.config(text='Randomization Complete')
 	if event.char == 'b':
 		print('Running Bubble Sort...')
+		process_label.config(text='Running Bubble Sort...')
 		bubbleSort()
 		sortComplete()
 		print('Bubble Sort Complete')
+		process_label.config(text='Bubble Sort Complete')
 	if event.char == 's':
 		print('Running Selection Sort...')
+		process_label.config(text='Running Selection Sort...')
 		selectionSort()
 		sortComplete()
 		print('Selection Sort Complete')
+		process_label.config(text='Selection Sort Complete')
 	if event.char == 'q':
 		print('Running QuickSort...')
+		process_label.config(text='Running QuickSort...')
 		quickSort(0, (N-1))
 		sortComplete()
 		print('QuickSort Complete')
-	if event.char == 'm':
-		print('Running Merge Sort...')
-		mergeSort(arr)
-		sortComplete()
-		print('Merge Sort Complete')
+		process_label.config(text='QuickSort Complete')
+	# if event.char == 'm':
+	# 	print('Running Merge Sort...')
+	# 	mergeSort(arr)
+	# 	sortComplete()
+	# 	print('Merge Sort Complete')
 
 
 if __name__ == "__main__":
@@ -165,24 +173,23 @@ if __name__ == "__main__":
 
 	# Canvas initialization
 	canvas = Canvas(window, bg = 'black', width=f'{WIDTH}', height=f'{HEIGHT}')
-	canvas.pack()
+	canvas.pack(expand=YES, fill=BOTH)
+
+	# initialize label
+	process_label = Label(
+		canvas,
+		padx=0,
+		pady=0,
+		bg='black',
+		fg='white',
+		font=('Courier New', '20', 'bold'),
+		text='Hello World'
+	)
+	process_label.pack(anchor=NW)
+
 	# generate initial array
 	arr: list[Rectangle] = []
 	genArray(arr)
-
-	# initialize labels
-	data = StringVar()
-	data_label = Label(canvas, 
-		anchor=NW, 
-		justify=LEFT,
-		bg='black', 
-		fg='white',
-		textvariable=data,
-		height='20',
-		width='100'
-		)
-	data.set('Comparisons:')
-	# data_label.pack()
 
 	# listen for keyboard input
 	window.bind('<Key>', key_pressed)
